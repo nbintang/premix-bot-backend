@@ -13,10 +13,10 @@ import (
 var Module = fx.Options(
     user.Module,
     payment.Module,
-    fx.Invoke(registerRoutes), // <--- penting
+    fx.Invoke(bootstrap), // <--- penting
 )
 
-func registerRoutes(router *gin.Engine, uh *user.Handler, ph *payment.Handler, log *logrus.Logger) {
+func bootstrap(router *gin.Engine, uh *user.Handler, ph *payment.Handler, log *logrus.Logger) {
     v1 := router.Group("/api/v1")
 
     user.RegisterRoutes(v1, uh)
