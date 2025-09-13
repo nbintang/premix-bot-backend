@@ -11,16 +11,17 @@ import (
 )
 
 var Module = fx.Options(
-    user.Module,
-    payment.Module,
-    fx.Invoke(bootstrap), // <--- penting
+	user.Module,
+	payment.Module,
+	fx.Invoke(bootstrap), // <--- penting
 )
 
 func bootstrap(router *gin.Engine, uh *user.Handler, ph *payment.Handler, log *logrus.Logger) {
-    v1 := router.Group("/api/v1")
 
-    user.RegisterRoutes(v1, uh)
-    payment.RegisterRoutes(v1, ph)
+	v1 := router.Group("/api/v1")
 
-    log.Info("routes registered successfully")
+	user.RegisterRoutes(v1, uh)
+	payment.RegisterRoutes(v1, ph)
+
+	log.Info("routes registered successfully")
 }
