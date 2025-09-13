@@ -35,6 +35,5 @@ type WithdrawRequest struct {
 	CreatedAt time.Time `gorm:"autoCreateTime"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 
-	// Relations
 	User User `gorm:"foreignKey:UserID;constraint:OnDelete:CASCADE"`
 }

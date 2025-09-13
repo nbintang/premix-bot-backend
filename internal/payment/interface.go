@@ -1,9 +1,11 @@
 package payment
 
+import "premix-backend/internal/models"
+
 type Repository interface {
-	GetAllPayments() ([]Payment, error)
+	GetAllPayments() ([]models.Payment, error)
 }
 
 type Service interface {
-	GetPayments() ([]Payment, error)
+	GetPayments() ([]models.Payment, error)
 }

@@ -1,6 +1,10 @@
 package payment
 
-import "gorm.io/gorm"
+import (
+	"premix-backend/internal/models"
+
+	"gorm.io/gorm"
+)
 
 type repository struct {
 	db *gorm.DB
@@ -11,8 +15,8 @@ func NewRepository(db *gorm.DB) Repository {
 }
 
 
-func (r *repository) GetAllPayments() ([]Payment, error) {
-	var users []Payment
+func (r *repository) GetAllPayments() ([]models.Payment, error) {
+	var users []models.Payment
 	if err := r.db.Find(&users).Error; err != nil {
 		return nil, err
 	}
