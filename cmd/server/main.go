@@ -3,6 +3,8 @@ package main
 import (
 	"premix-backend/internal/app"
 	"premix-backend/internal/shared/config"
+	"premix-backend/internal/shared/middleware"
+	"premix-backend/internal/shared/migration"
 
 	"go.uber.org/fx"
 )
@@ -10,7 +12,9 @@ import (
 func main() {
 	appServer := fx.New(
 		config.Module, // config tetap dipisah
-		app.Module,    // semua module bisnis
+		middleware.Module,
+		migration.Module,
+		app.Module, // semua module bisnis
 	)
 	appServer.Run()
 }
