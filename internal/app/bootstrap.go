@@ -13,7 +13,7 @@ import (
 var Module = fx.Options(
 	user.Module,
 	payment.Module,
-	fx.Invoke(bootstrap), // <--- penting
+	fx.Invoke(bootstrap),
 )
 
 func bootstrap(router *gin.Engine, uh *user.Handler, ph *payment.Handler, log *logrus.Logger) {
