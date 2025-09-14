@@ -6,15 +6,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Handler struct {
-	service Service
+type UserHandlerImpl struct {
+	service UserService
 }
 
-func NewHandler(service Service) *Handler {
-	return &Handler{service: service}
+func NewUserHandler(service UserService) *UserHandlerImpl {
+	return &UserHandlerImpl{service: service}
 }
 
-func (h *Handler) GetUsers(c *gin.Context) {
+func (h *UserHandlerImpl) GetUsers(c *gin.Context) {
 	users, err := h.service.GetUsers()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

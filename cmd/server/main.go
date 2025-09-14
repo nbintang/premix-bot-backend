@@ -14,7 +14,7 @@ func main() {
 		config.Module, // config tetap dipisah
 		middleware.Module,
 		migration.Module,
-		app.Module, // semua module bisnis
+		app.AppModule, // semua module bisnis
 	)
 	appServer.Run()
 }

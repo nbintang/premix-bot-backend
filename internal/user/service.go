@@ -2,14 +2,14 @@ package user
 
 import "premix-backend/internal/models"
 
-type service struct {
-	repo Repository
+type UserServiceImpl struct {
+	repo UserRepository
 }
 
-func NewService(repo Repository) Service {
-	return &service{repo: repo}
+func NewService(repo UserRepository) UserService {
+	return &UserServiceImpl{repo: repo}
 }
 
-func (s *service) GetUsers() ([]models.User, error) {
+func (s *UserServiceImpl) GetUsers() ([]models.User, error) {
 	return s.repo.GetAllUsers()
 }

@@ -2,14 +2,14 @@ package payment
 
 import "premix-backend/internal/models"
 
-type service struct {
-	repo Repository
+type PaymentServiceImpl struct {
+	repo PaymentRepository
 }
 
-func NewService(repo Repository) Service {
-	return &service{repo: repo}
+func NewPaymentService(repo PaymentRepository) PaymentService {
+	return &PaymentServiceImpl{repo: repo}
 }
 
-func (s *service) GetPayments() ([]models.Payment, error) {
-	return s.repo.GetAllPayments()
+func (s *PaymentServiceImpl) GetPaymentMethods() ([]models.Payment, error) {
+	return s.repo.GetAllPaymentMethods()
 }
