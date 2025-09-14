@@ -4,8 +4,8 @@ import (
 	"go.uber.org/fx"
 )
 
-var Module = fx.Options(
-	// fx.Provide(NewAuthService),  // nanti kalau ada service
-	// fx.Provide(NewAuthHandler),  // nanti kalau ada handler
+var BotModule = fx.Options(
+	fx.Provide(NewBotRepository),
+	fx.Provide(NewBotService), // nanti kalau ada service
+	fx.Provide(NewBotHandler), // nanti kalau ada handler
 )
-

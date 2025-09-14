@@ -4,9 +4,9 @@ import (
 	"go.uber.org/fx"
 )
 
-// Module membungkus semua komponen User ke dalam fx.Options
-var Module = fx.Options(
-	fx.Provide(NewRepository),
+// UserModule membungkus semua komponen User ke dalam fx.Options
+var UserModule = fx.Options(
+	fx.Provide(NewUserRepository),
 	fx.Provide(NewService),
-	fx.Provide(NewHandler),
+	fx.Provide(NewUserHandler),
 )

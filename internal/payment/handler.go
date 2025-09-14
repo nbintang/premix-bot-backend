@@ -6,19 +6,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Handler struct {
-	service Service
+type PaymentHandlerImpl struct {
+	service PaymentService
 }
 
-func NewHandler(service Service) *Handler {
-	return &Handler{service: service}
+func NewPaymentHandler(service PaymentService) *PaymentHandlerImpl {
+	return &PaymentHandlerImpl{service: service}
 }
 
-func (h *Handler) GetUsers(c *gin.Context) {
-	users, err := h.service.GetPayments()
+func (h *PaymentHandlerImpl) GetUsers(c *gin.Context) {
+	paymentMethods, err := h.service.GetPaymentMethods()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, users)
+	c.JSON(http.StatusOK, paymentMethods)
 }

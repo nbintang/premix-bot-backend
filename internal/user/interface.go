@@ -2,10 +2,10 @@ package user
 
 import "premix-backend/internal/models"
 
-type Repository interface {
+type UserRepository interface {
 	GetAllUsers() ([]models.User, error)
 }
 
-type Service interface {
+type UserService interface {
 	GetUsers() ([]models.User, error)
 }

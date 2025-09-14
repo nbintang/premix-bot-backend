@@ -2,7 +2,7 @@ package user
 
 import "github.com/gin-gonic/gin"
 
-func RegisterRoutes(rg *gin.RouterGroup, h *Handler) {
-    userGroup := rg.Group("/users")
-    userGroup.GET("", h.GetUsers)
+func RegisterUserRoutes(rg *gin.RouterGroup, h *UserHandlerImpl) {
+	userGroup := rg.Group("/users")
+	userGroup.GET("", h.GetUsers)
 }
