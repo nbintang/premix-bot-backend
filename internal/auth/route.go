@@ -1,9 +1,17 @@
 package auth
 
-import "github.com/gin-gonic/gin"
+import (
+	"premix-backend/internal/auth/dto"
+	"premix-backend/internal/shared/middleware"
 
-func RegisterAuthRoutes(rg *gin.RouterGroup, h *AuthHandlerImpl) {
+	"github.com/gin-gonic/gin"
+)
+
+// RegisterAuthRoutes for register routes
+func RegisterAuthRoutes(rg *gin.RouterGroup, h *HandlerImpl, v *middleware.Validation) {
 	authGroup := rg.Group("/auth")
-	authGroup.POST("/login", h.Login)
-	authGroup.POST("/register", h.Register)
+
+	// attach middleware ke route
+	authGroup.POST("/login", v.Middleware(&dto.LoginRequest{}), h.Login)
+	authGroup.POST("/register", v.Middleware(&dto.RegisterRequest{}), h.Register)
 }

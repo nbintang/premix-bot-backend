@@ -2,44 +2,49 @@ package auth
 
 import (
 	"net/http"
+	"premix-backend/internal/auth/dto"
+	"premix-backend/internal/shared/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
-type AuthHandlerImpl struct {
-	service AuthService
+// HandlerImpl struct
+type HandlerImpl struct {
+	service        Service
+	responseHelper *utils.ResponseHelper
 }
 
-func NewAuthHandler(service AuthService) *AuthHandlerImpl {
-	return &AuthHandlerImpl{service: service}
+// NewHandler init
+func NewHandler(service Service, responseHelper *utils.ResponseHelper) *HandlerImpl {
+	return &HandlerImpl{service: service, responseHelper: responseHelper}
 }
 
-func (h *AuthHandlerImpl) Login(c *gin.Context) {
-	username := c.PostForm("username")
-	password := c.PostForm("password")
-	if username == "" || password == "" {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "The input must be provided!"})
-		return
-	}
-	token, err := h.service.Login(username, password)
+// Login for login
+func (h *HandlerImpl) Login(c *gin.Context) {
+	req, _ := c.Get("body")
+	loginReq := req.(*dto.LoginRequest)
+
+	token, err := h.service.Login(loginReq.Username, loginReq.Password)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		h.responseHelper.ErrorResponse(c, http.StatusInternalServerError, err.Error(), err.Error())
 		return
 	}
-	c.JSON(http.StatusOK, token)
+
+	h.responseHelper.SuccessResponse(c, http.StatusOK, "Success Login", token)
+
 }
 
-func (h *AuthHandlerImpl) Register(c *gin.Context) {
-	username := c.PostForm("username")
-	name := c.PostForm("name")
-	password := c.PostForm("password")
-	confirmPassword := c.PostForm("confirmPassword")
+// Register for register
+func (h *HandlerImpl) Register(c *gin.Context) {
+	req, _ := c.Get("body")
+	registerReq := req.(*dto.RegisterRequest)
 
-	token, err := h.service.Register(username, name, password, confirmPassword)
+	token, err := h.service.Register(registerReq.Username, registerReq.Name, registerReq.Password, registerReq.ConfirmPassword)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		h.responseHelper.ErrorResponse(c, http.StatusBadRequest, err.Error(), err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	h.responseHelper.SuccessResponse(c, http.StatusOK, "Success regist", token)
+
 }

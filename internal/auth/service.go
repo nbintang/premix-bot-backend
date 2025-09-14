@@ -1,15 +1,19 @@
 package auth
 
-type AuthServiceImpl struct{}
+// ServiceImpl struct
+type ServiceImpl struct{}
 
-func NewAuthService() AuthService {
-	return &AuthServiceImpl{}
+// NewService init
+func NewService() Service {
+	return &ServiceImpl{}
 }
 
-func (s *AuthServiceImpl) Login(username string, password string) (string, error) {
+// Login for login
+func (s *ServiceImpl) Login(username string, password string) (string, error) {
 	return "dummy-token", nil
 }
 
-func (s *AuthServiceImpl) Register(username string, name string, password string, confirmPassword string) (string, error) {
+// Register for register
+func (s *ServiceImpl) Register(username string, name string, password string, confirmPassword string) (string, error) {
 	return "dummy-tokem", nil
 }
